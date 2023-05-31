@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>実験①</title>
+    <title>練習用</title>
     <style>
         #emoji {
             position: absolute;
@@ -79,13 +79,12 @@
     <div id="container">
         <div id="emoji"></div>
     </div>
-    <div id="topic1">
-        <font color="#c7000b"><b>発話衝突を肯定的に捉えて</b></font>議論を行ってください
-    </div>
-    <div id="topic2">議題：西日本を象徴する観光地を一つに決めてください</div>
+    <div id="topic1">タイマーが0になった瞬間に以下の文章を読み上げてください</div>
+    <div id="topic2">私はA案が良いと思います。</div>
 
-    <button id="startTimer">Start Timer</button>
-    <div id="timer">5:00</div>
+    <!-- <button id="startTimer">Start Timer</button> -->
+    <div id="startTimer"></div>
+    <div id="timer">00:05</div>
 
 
 
@@ -93,8 +92,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
     <script>
         let socket = io();
-        document.querySelector('#startTimer').addEventListener('click', () => {
-            socket.emit('startTimer');
+        // document.querySelector('#startTimer').addEventListener('click', () => {
+        //     socket.emit('startTimer');
+        // });
+
+        document.addEventListener('keydown', function(event){
+            if(event.keyCode === 50 && event.ctrlKey && event.altKey){
+                socket.emit('startTimer');
+            }
         });
 
         socket.on('updateTimer', (currentTime) => {
@@ -102,7 +107,7 @@
         });
 
         document.addEventListener("keydown", function (event) {
-            if (event.ctrlKey && event.altKey && event.shiftKey) {
+            if (event.keyCode === 56 && event.ctrlKey && event.altKey && event.shiftKey) {
                 var emoji = document.getElementById('emoji');
                 emoji.innerHTML = '👍';
                 emoji.style.opacity = 1;

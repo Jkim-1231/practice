@@ -19,7 +19,8 @@ io.on("connection", (socket) => {
   })
 
   socket.on('startTimer', () => {
-    let time = 300;
+    console.log("starttimerを受け取りました");
+    let time = 5;
 
     const timer = setInterval(() => {
       time--;
